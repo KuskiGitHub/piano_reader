@@ -1,13 +1,12 @@
 import os
-import numpy
 import cv2
 import time
 import random
 from tkinter import *
-from tkinter import ttk
 from PIL import ImageTk, Image
 import threading
 import numpy as np
+from sys import platform
 
 class Note():
     def __init__(self) -> None:
@@ -24,7 +23,10 @@ def load_data():
         a = Note()
         a.image_path = i
         a.mat = cv2.imread(i, cv2.IMREAD_UNCHANGED)
-        a.answer = i.split("\\")[-1].split("_")[1]
+        if platform == "linux":
+            a.answer = i.split("/")[-1].split("_")[1]
+        else:
+            a.answer = i.split("\\")[-1].split("_")[1]
         Notes.append(a)
     return Notes
 
